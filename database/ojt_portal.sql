@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2025 at 01:31 AM
+-- Generation Time: Jun 06, 2025 at 06:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,9 +57,21 @@ INSERT INTO `attendance` (`id`, `user_id`, `time_in`, `time_out`, `date`, `creat
 (20, 4, '2025-02-19 14:49:15', '2025-02-19 14:49:20', '2025-02-19', '2025-02-19 13:49:15', 'Completed'),
 (21, 4, '2025-02-19 21:53:43', '2025-02-19 21:54:01', '2025-02-19', '2025-02-19 13:53:43', 'Completed'),
 (22, 4, '2025-02-19 21:55:07', '2025-02-19 22:33:29', '2025-02-19', '2025-02-19 13:55:07', 'Completed'),
-(23, 2, '2025-02-19 22:33:16', NULL, '2025-02-19', '2025-02-19 14:33:16', 'Pending'),
+(23, 2, '2025-02-19 22:33:16', '2025-02-20 09:58:03', '2025-02-19', '2025-02-19 14:33:16', 'Completed'),
 (24, 4, '2025-02-19 22:33:32', '2025-02-19 22:38:49', '2025-02-19', '2025-02-19 14:33:32', 'Completed'),
-(25, 4, '2025-02-19 22:38:50', '2025-02-19 22:40:57', '2025-02-19', '2025-02-19 14:38:50', 'Completed');
+(25, 4, '2025-02-19 22:38:50', '2025-02-19 22:40:57', '2025-02-19', '2025-02-19 14:38:50', 'Completed'),
+(26, 2, '2025-02-20 09:58:05', '2025-02-20 16:42:51', '2025-02-20', '2025-02-20 01:58:05', 'Completed'),
+(27, 2, '2025-02-20 16:44:50', '2025-02-20 16:45:26', '2025-02-20', '2025-02-20 08:44:50', 'Completed'),
+(28, 2, '2025-02-20 16:59:36', '2025-02-21 08:23:13', '2025-02-20', '2025-02-20 08:59:36', 'Completed'),
+(29, 2, '2025-02-21 08:23:16', '2025-02-21 16:56:53', '2025-02-21', '2025-02-21 00:23:16', 'Completed'),
+(30, 2, '2025-02-24 08:45:45', '2025-02-24 17:00:58', '2025-02-24', '2025-02-24 00:45:45', 'Completed'),
+(31, 2, '2025-02-25 08:12:34', '2025-02-25 17:06:48', '2025-02-25', '2025-02-25 00:12:34', 'Completed'),
+(32, 2, '2025-02-26 09:07:20', '2025-03-03 17:50:59', '2025-02-26', '2025-02-26 01:07:20', 'Completed'),
+(33, 2, '2025-03-04 09:01:50', '2025-03-05 22:30:25', '2025-03-04', '2025-03-04 01:01:50', 'Completed'),
+(34, 2, '2025-03-06 12:29:08', '2025-03-07 14:27:32', '2025-03-06', '2025-03-06 04:29:08', 'Completed'),
+(35, 2, '2025-03-08 15:33:43', '2025-03-08 16:11:29', '2025-03-08', '2025-03-08 07:33:43', 'Completed'),
+(36, 2, '2025-03-08 16:11:33', '2025-03-12 08:21:48', '2025-03-08', '2025-03-08 08:11:33', 'Completed'),
+(37, 5, '2025-06-06 12:19:16', '2025-06-06 12:19:18', '2025-06-06', '2025-06-06 04:19:16', 'Completed');
 
 -- --------------------------------------------------------
 
@@ -88,7 +100,8 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `company`, `ojt_hours`, `s
 (1, 'Yuri', 'Gonzaga', 'PHilMech', 300, '2025-02-24', 'yuri@gmail.com', '$2y$10$FTcJSPChDdtRT2Q4V0a2tOtIDG1390pqRV1G59OPjAsM8S73QEUfC', '2025-02-18 05:34:22', 0),
 (2, 'Aleck', 'Ferry', 'PHilMech', 300, '2025-02-24', 'aleck@gmail.com', '$2y$10$h9QIFwoHPkuaJGajT5iqy.O4aVw8ZxhDZBPglA3mhH0n18p.p4TU6', '2025-02-18 05:42:17', 0),
 (3, 'Francis', 'Gago', 'PHilMech', 500, '2025-02-20', 'francis@gmail.com', '$2y$10$Z.lyRy0x1TRuJsKhheCjEuMjq6/QDwyPRwPyQCPj1BIIevs79a9AG', '2025-02-19 12:18:11', 0),
-(4, 'Yuri', 'Gonzaga', 'PHilMech', 1, '2025-02-20', 'yurigonzaga643@gmail.com', '$2y$10$2imyPUVKQvcS4o/1nwzam.82J8Rxr/8IFdCgayekCXmfMSpVbdVfS', '2025-02-19 13:30:06', 0);
+(4, 'Yuri', 'Gonzaga', 'PHilMech', 1, '2025-02-20', 'yurigonzaga643@gmail.com', '$2y$10$2imyPUVKQvcS4o/1nwzam.82J8Rxr/8IFdCgayekCXmfMSpVbdVfS', '2025-02-19 13:30:06', 0),
+(5, 'Yuri', 'Gonzaga', 'Grand Luxe Hotel', 500, '2025-06-20', 'princes@gmail.com', '$2y$10$00VjPAvzhL4NoTgJ4k1a3OQGZk.Q8QjpMzznGIYnbzeFqVXc44tzW', '2025-06-06 04:13:09', 0);
 
 --
 -- Indexes for dumped tables
@@ -116,13 +129,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

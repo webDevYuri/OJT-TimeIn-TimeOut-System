@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary w-100 mb-3">Create Account</button>
-                                    <p class="text-center mb-0">Already have an account? <a href="index.php" class="text-decoration-none">Sign In</a></p>
+                                    <p class="text-center mb-0">Already have an account? <a href="../index.php" class="text-decoration-none">Sign In</a></p>
                                 </div>
                             </form>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$user = "root"; // Change this if needed
+$user = "root"; 
 $password = "";
 $database = "ojt_portal";
 

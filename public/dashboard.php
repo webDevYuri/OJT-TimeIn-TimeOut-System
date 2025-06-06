@@ -1,23 +1,20 @@
 <?php
 session_start();
-// Set timezone to Manila/Philippines
 date_default_timezone_set('Asia/Manila');
 if (!isset($_SESSION['user_id'])) {
-    header("Location: public/index.php");
+    header("Location: ../index.php");
     exit();
 }
 
-include 'database/db_connect.php';
+include '../database/db_connect.php';
 $user_id = $_SESSION['user_id'];
 
-// Get user data
 $user_stmt = $conn->prepare("SELECT first_name, last_name, ojt_hours, hours_completed, start_date FROM users WHERE id = ?");
 $user_stmt->bind_param("i", $user_id);
 $user_stmt->execute();
 $user_result = $user_stmt->get_result();
 $user = $user_result->fetch_assoc();
 
-// Calculate the total logged hours from attendance records (only completed logs)
 $attendanceSumStmt = $conn->prepare("SELECT SUM(TIME_TO_SEC(TIMEDIFF(time_out, time_in))) AS total_seconds FROM attendance WHERE user_id = ? AND time_out IS NOT NULL");
 $attendanceSumStmt->bind_param("i", $user_id);
 $attendanceSumStmt->execute();
@@ -26,7 +23,6 @@ $sumRow = $sumResult->fetch_assoc();
 $totalLoggedSeconds = $sumRow['total_seconds'] ? $sumRow['total_seconds'] : 0;
 $totalLoggedHours = $totalLoggedSeconds / 3600;
 
-// Recalculate progress and remaining hours based on the logged hours
 $remaining_hours = $user['ojt_hours'] - $totalLoggedHours;
 if ($remaining_hours < 0) {
     $remaining_hours = 0;  // avoid negative display
@@ -44,7 +40,6 @@ if ($totalLoggedHours >= $user['ojt_hours']) {
 
 $days_remaining = ceil($remaining_hours / 8);
 
-// Function to format a duration in h, m, s
 function formatDuration($seconds) {
     $hours = floor($seconds / 3600);
     $remainder = $seconds % 3600;
@@ -57,21 +52,18 @@ function formatDuration($seconds) {
     if ($minutes > 0) {
         $parts[] = $minutes . 'm';
     }
-    // Always show seconds if nothing else, or if seconds are non-zero
     if ($secs > 0 || empty($parts)) {
         $parts[] = $secs . 's';
     }
     return implode(' ', $parts);
 }
 
-// Check if there's any pending attendance log
 $pendingStmt = $conn->prepare("SELECT id FROM attendance WHERE user_id = ? AND status = 'Pending' LIMIT 1");
 $pendingStmt->bind_param("i", $user_id);
 $pendingStmt->execute();
 $pendingResult = $pendingStmt->get_result();
 $hasPending = $pendingResult->num_rows > 0;
 
-// Get attendance records to display, sorted by created_at
 $attendance_stmt = $conn->prepare("
     SELECT date, time_in, time_out, status 
     FROM attendance 
@@ -81,9 +73,7 @@ $attendance_stmt = $conn->prepare("
 $attendance_stmt->bind_param("i", $user_id);
 $attendance_stmt->execute();
 $attendance_result = $attendance_stmt->get_result();
-// Store all logs in an array
 $logs = $attendance_result->fetch_all(MYSQLI_ASSOC);
-// Show only the 5 most recent logs on the dashboard
 $recentLogs = array_slice($logs, 0, 5);
 ?>
 <!DOCTYPE html>
@@ -382,7 +372,6 @@ $recentLogs = array_slice($logs, 0, 5);
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-brand text-center">
             <i class="bi bi-person-workspace fs-2 text-primary mb-2"></i>
@@ -397,8 +386,6 @@ $recentLogs = array_slice($logs, 0, 5);
             <i class="bi bi-box-arrow-right"></i> Sign Out
         </button>
     </div>
-
-    <!-- Main Content -->
     <div class="main-content">
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -411,8 +398,6 @@ $recentLogs = array_slice($logs, 0, 5);
                 <div id="clock"></div>
             </div>
         </div>
-
-        <!-- Stats Cards -->
         <div class="row g-4 mb-4">
             <div class="col-md-6 col-lg-3">
                 <div class="card stat-card">
@@ -467,7 +452,6 @@ $recentLogs = array_slice($logs, 0, 5);
                 </div>
             </div>
         </div>
-        <!-- Progress and Time Tracking -->
         <div class="row g-4 mb-4">
             <div class="col-lg-8">
                 <div class="card">
@@ -520,8 +504,6 @@ $recentLogs = array_slice($logs, 0, 5);
                 </div>
             </div>
         </div>
-
-        <!-- Attendance Logs -->
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -578,8 +560,6 @@ $recentLogs = array_slice($logs, 0, 5);
             </div>
         </div>
     </div>
-
-    <!-- View All Logs Modal -->
     <div class="modal fade" id="viewAllLogsModal" tabindex="-1" aria-labelledby="viewAllLogsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
@@ -651,8 +631,6 @@ $recentLogs = array_slice($logs, 0, 5);
             </div>
         </div>
     </div>
-
-    <!-- Logout Modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -668,16 +646,13 @@ $recentLogs = array_slice($logs, 0, 5);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <a href="actions/logout.php" class="btn btn-danger">Sign Out</a>
+                    <a href="../actions/logout.php" class="btn btn-danger">Sign Out</a>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Update clock every second
         function updateClock() {
             const options = { 
                 timeZone: 'Asia/Manila',
@@ -692,10 +667,8 @@ $recentLogs = array_slice($logs, 0, 5);
         }
         setInterval(updateClock, 1000);
         updateClock();
-
-        // Time tracking functions
         function timeIn() {
-            fetch('actions/time_in.php')
+            fetch('../actions/time_in.php')
                 .then(response => response.json())
                 .then(data => {
                     if(data.status === 'success') {
@@ -707,7 +680,7 @@ $recentLogs = array_slice($logs, 0, 5);
         }
 
         function timeOut() {
-            fetch('actions/time_out.php')
+            fetch('../actions/time_out.php')
                 .then(response => response.json())
                 .then(data => {
                     if(data.status === 'success') {

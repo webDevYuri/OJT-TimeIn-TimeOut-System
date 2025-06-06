@@ -2,7 +2,6 @@
 include '../database/db_connect.php';
 session_start();
 
-// Set timezone to Manila/Philippines
 date_default_timezone_set('Asia/Manila');
 
 if (!isset($_SESSION['user_id'])) {

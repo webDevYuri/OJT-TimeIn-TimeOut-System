@@ -87,7 +87,7 @@
                                 </div>
                                 <?php unset($_SESSION['error_message']); ?>
                             <?php endif; ?>
-                            <form method="POST" action="../actions/login.php">
+                            <form method="POST" action="actions/login.php">
                                 <div class="mb-4">
                                     <label class="form-label">Email Address</label>
                                     <div class="input-group">
@@ -114,7 +114,7 @@
                                     <a href="#" class="text-decoration-none">Forgot Password?</a>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
-                                <p class="text-center mb-0">Don't have an account? <a href="signup.php" class="text-decoration-none">Sign Up</a></p>
+                                <p class="text-center mb-0">Don't have an account? <a href="public/signup.php" class="text-decoration-none">Sign Up</a></p>
                             </form>
                         </div>
                     </div>
